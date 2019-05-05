@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             xmlns:sync="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:local="clr-namespace:Mobile.Solution.UI.Views"
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             Padding="0"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             x:Class="Mobile.Solution.UI.Views.PlanFactCollectionView">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <DataTemplate x:Key="MainTemplate">
+                <Frame BackgroundColor="White"
+                       Padding="0"
+                       OutlineColor="{StaticResource FrameBorderColor}"
+                       Margin="0,5,0,0"
+                       HasShadow="false" 
+                       CornerRadius="2">
+                    <StackLayout Orientation="Horizontal"
+                                Padding="0" 
+                                Spacing="0">
+                        <StackLayout Padding="0"
+                                     Spacing="0"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding PropertiesStr}"
+                                       Margin="10,10,0,0"
+                                       FontSize="Micro"
+                                       TextColor="#AEB9C2"
+                                       Style="{StaticResource MainLabelStyle}"
+                                       LineBreakMode="TailTruncation"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center" />
+                                <Label Text="{Binding Name}"
+                                       Margin="10,15,0,0"
+                                       TextColor="{StaticResource TextColor}"
+                                       Style="{StaticResource MainLabelStyle}"
+                                       FontSize="Small"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CommandAccept}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                        <Grid Padding="0"
+                              WidthRequest="50"
+                              VerticalOptions="Start"
+                              HorizontalOptions="End"
+                              HeightRequest="30">
+                            <Image Source="vertical_dots.png"
+                                   Rotation="90"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CommandShowOptions}" Tapped="Handle_Tapped" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <customControls:PopupLayout x:Name="Popup">
+            <customControls:PopupLayout.Content>
+                <Grid Padding="0">
+                    <StackLayout>
+                        <Grid HeightRequest = "65" BackgroundColor="{StaticResource TabsBackgroundColor}"/>
+                    </StackLayout> 
+                    <StackLayout>
+                        <Frame x:Name="VersionInfo"
+                               BackgroundColor="#EB9300"
+                               Padding="0"
+                               Margin="10,0,10,0"
+                               HeightRequest="120"
+                               HasShadow="false" 
+                               CornerRadius="5">
+                            <StackLayout Padding="0" 
+                                        Spacing="0"
+                                        BackgroundColor="Transparent"
+                                        HorizontalOptions="FillAndExpand">
+                                <Label x:Name="VersionLabel"
+                                       Margin="10,10,0,0"
+                                       FontSize="Micro"
+                                       TextColor="Gray"
+                                       Style="{StaticResource MainLabelStyle}"
+                                       LineBreakMode="TailTruncation"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center" />
+                                <Label x:Name="VersionDescriptionLabel"
+                                       Margin="10,15,0,0"
+                                       TextColor="White"
+                                       Style="{StaticResource MainLabelStyle}"
+                                       FontSize="Small"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center" />
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ShowVersionInfo"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Frame>
+                        <OnIdiom  x:TypeArguments="View">
+                            <OnIdiom.Tablet>
+                                <StackLayout Orientation="Horizontal"
+                                             Padding="10,0,10,0"
+                                             Spacing="10">
+                                    <sync:SfListView ItemsSource="{Binding Items1}"
+                                                     ItemTemplate="{StaticResource MainTemplate}"
+                                                     AllowSwiping="false"
+                                                     SelectionMode="None"
+                                                     SwipeOffset="160"
+                                                     Padding="0"
+                                                     BindingContextChanged="BindableObject_OnBindingContextChanged"
+                                                     ItemSize="120" />
+                                     <sync:SfListView ItemsSource="{Binding Items2}"
+                                                     ItemTemplate="{StaticResource MainTemplate}"
+                                                     AllowSwiping="True"
+                                                     SelectionMode="None"
+                                                     SwipeOffset="160"
+                                                     Padding="0"
+                                                     BindingContextChanged="BindableObject_OnBindingContextChanged"
+                                                     ItemSize="120" />
+                                </StackLayout>
+                            </OnIdiom.Tablet>
+                            <OnIdiom.Phone>
+                                <sync:SfListView ItemsSource="{Binding Items}"
+                                                     ItemTemplate="{StaticResource MainTemplate}"
+                                                     AllowSwiping="false"
+                                                     SelectionMode="None"
+                                                     SwipeOffset="160"
+                                                     Padding="10,0,10,0"
+                                                     BindingContextChanged="BindableObject_OnBindingContextChanged"
+                                                     ItemSize="120" />
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </StackLayout>
+                </Grid>
+            </customControls:PopupLayout.Content>
+            <customControls:PopupLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Popup_Tapped"/>
+            </customControls:PopupLayout.GestureRecognizers>
+        </customControls:PopupLayout>
+    </ContentView.Content>
+</ContentView>

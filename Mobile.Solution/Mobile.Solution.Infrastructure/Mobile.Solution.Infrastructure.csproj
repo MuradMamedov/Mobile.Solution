@@ -1,0 +1,260 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mobile.Solution.Infrastructure</RootNamespace>
+    <AssemblyName>Mobile.Solution.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Behaviors\BehaviorBase.cs" />
+    <Compile Include="Behaviors\EventToCommandBehavior.cs" />
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="CustomControls\CarouselView\CarouselLayout.cs" />
+    <Compile Include="CustomControls\CarouselView\CarouselView.xaml.cs">
+      <DependentUpon>CarouselView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\Dialog\Dialog.cs" />
+    <Compile Include="CustomControls\SelectableEnumViewModel.cs" />
+    <Compile Include="CustomControls\SelectableViewModel.cs" />
+    <Compile Include="CustomControls\PopupListView\IPopupListViewItem.cs" />
+    <Compile Include="CustomControls\EnumPicker\EnumPicker.cs" />
+    <Compile Include="CustomControls\EnumPicker\ObservableEnum.cs" />
+    <Compile Include="CustomControls\PopupListView\PopupListView.cs" />
+    <Compile Include="CustomControls\PopupListView\PopupListViewModel.cs" />
+    <Compile Include="CustomControls\PullToRefreshLayout\PullToRefreshLayout.cs" />
+    <Compile Include="CustomControls\YearMonthPicker\YearMonthPicker.cs" />
+    <Compile Include="Dependencies\IAppInfo.cs" />
+    <Compile Include="Dependencies\IFilePreview.cs" />
+    <Compile Include="Dependencies\IUrlPreview.cs" />
+    <Compile Include="Helpers\TranslateExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\Downloader.cs" />
+    <Compile Include="Requests\NSI\Contracts\InfoAgreement.cs" />
+    <Compile Include="Requests\NSI\Contracts\InfoCarInAgreement.cs" />
+    <Compile Include="Requests\NSI\Contracts\InfoSumFreight.cs" />
+    <Compile Include="Requests\NSI\Contracts\InfoUniqueStation.cs" />
+    <Compile Include="Requests\Reports\Contracts\RegCard.cs" />
+    <Compile Include="Requests\Reports\Contracts\ParkProfitEmpty.cs" />
+    <Compile Include="Requests\Reports\Contracts\CargoPlanFact.cs" />
+    <Compile Include="Requests\NSI\Contracts\InfoOrgPassport.cs" />
+    <Compile Include="Requests\NSI\Contracts\INSIItem.cs" />
+    <Compile Include="Requests\NSI\NSIManager.cs" />
+    <Compile Include="Requests\NSI\NSIRequest.cs" />
+    <Compile Include="Requests\Reports\Contracts\ParkProfitLaden.cs" />
+    <Compile Include="Requests\Reports\ParkProfitEmptyReport.cs" />
+    <Compile Include="Requests\Reports\ParkProfitLadenReport.cs" />
+    <Compile Include="Requests\Reports\RegCardReport.cs" />
+    <Compile Include="Requests\Reports\PlanFactReport.cs" />
+    <Compile Include="Requests\Request.cs" />
+    <Compile Include="Helpers\Converters.cs" />
+    <Compile Include="CustomControls\TabScrollView\DataTemplateSelector.cs" />
+    <Compile Include="CustomControls\ISelectable.cs" />
+    <Compile Include="CustomControls\ItemsView\ItemsView.xaml.cs">
+      <DependentUpon>ItemsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\TabScrollView\TabbedView.xaml.cs">
+      <DependentUpon>TabbedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\TabScrollView\TemplateContentView.cs" />
+    <Compile Include="CustomControls\TabScrollView\TemplateSelector.cs" />
+    <Compile Include="Helpers\ResourceContainer.cs" />
+    <Compile Include="Requests\ServerManager.cs" />
+    <Compile Include="CustomControls\FormattedPhoneNumberEntry\FormattedPhoneNumberEntry.cs" />
+    <Compile Include="Requests\Reports\PlanFactParameters.cs" />
+    <Compile Include="CustomControls\NSI\SearchNSIView.xaml.cs">
+      <DependentUpon>SearchNSIView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\NSI\SearchNSIViewModel.cs" />
+    <Compile Include="CustomControls\StackLayoutList\StackLayoutList.cs" />
+    <Compile Include="Requests\NSI\Dictionaries.cs" />
+    <Compile Include="CustomControls\Autocomplete\AutoComplete.cs" />
+    <Compile Include="Helpers\ExceptionFileWriter.cs" />
+    <Compile Include="CustomControls\NSI\SearchOrganisationView.xaml.cs">
+      <DependentUpon>SearchOrganisationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\NSI\SearchOrganisationPage.xaml.cs">
+      <DependentUpon>SearchOrganisationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\NSI\RegCodes.cs" />
+    <Compile Include="CustomControls\EnumPicker\PopupEnumPicker.cs" />
+    <Compile Include="CustomControls\Dialog\PopupDatePicker.cs" />
+    <Compile Include="Dependencies\IDeviceOrientation.cs" />
+    <Compile Include="CustomControls\PopupLayout.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MvvmLightLibs.5.3.0.0\lib\portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MvvmLightLibs.5.3.0.0\lib\portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Data.Portable">
+      <HintPath>..\..\ExternalLib\Syncfusion\pcl\Syncfusion.Data.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridCommon.Portable">
+      <HintPath>..\..\ExternalLib\Syncfusion\pcl\Syncfusion.GridCommon.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms">
+      <HintPath>..\..\ExternalLib\Syncfusion\pcl\Syncfusion.SfChart.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfCalendar.XForms">
+      <HintPath>..\..\ExternalLib\Syncfusion\pcl\Syncfusion.SfCalendar.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Core.XForms">
+      <HintPath>..\..\ExternalLib\Syncfusion\ios\Syncfusion.Core.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DataSource.Portable">
+      <HintPath>..\..\ExternalLib\Syncfusion\ios\Syncfusion.DataSource.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfCalendar.iOS">
+      <HintPath>..\..\ExternalLib\Syncfusion\ios\Syncfusion.SfCalendar.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfCalendar.XForms.iOS">
+      <HintPath>..\..\ExternalLib\Syncfusion\ios\Syncfusion.SfCalendar.XForms.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.iOS">
+      <HintPath>..\..\ExternalLib\Syncfusion\ios\Syncfusion.SfChart.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms.iOS">
+      <HintPath>..\..\ExternalLib\Syncfusion\ios\Syncfusion.SfChart.XForms.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfListView.XForms">
+      <HintPath>..\..\ExternalLib\Syncfusion\ios\Syncfusion.SfListView.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfListView.XForms.iOS">
+      <HintPath>..\..\ExternalLib\Syncfusion\ios\Syncfusion.SfListView.XForms.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.DownloadManager.Abstractions">
+      <HintPath>..\..\packages\Xam.Plugins.DownloadManager.1.2.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\Plugin.DownloadManager.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.DownloadManager">
+      <HintPath>..\..\packages\Xam.Plugins.DownloadManager.1.2.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\Plugin.DownloadManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>..\..\packages\Xamarin.Forms.2.3.4.270\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform">
+      <HintPath>..\..\packages\Xamarin.Forms.2.3.4.270\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml">
+      <HintPath>..\..\packages\Xamarin.Forms.2.3.4.270\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Rg.Plugins.Popup">
+      <HintPath>..\..\packages\Rg.Plugins.Popup.1.0.4\lib\portable-win+net45+wp8+win8+wpa81\Rg.Plugins.Popup.dll</HintPath>
+    </Reference>
+    <Reference Include="Rg.Plugins.Popup.Platform">
+      <HintPath>..\..\packages\Rg.Plugins.Popup.1.0.4\lib\portable-win+net45+wp8+win8+wpa81\Rg.Plugins.Popup.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\NSI\SearchNSIView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\NSI\SearchOrganisationView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\NSI\SearchOrganisationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requests\NSI\RegCodes.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomControls\ItemsView\ItemsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomControls\TabScrollView\TabbedView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\config.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomControls\CarouselView\CarouselView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Project="..\..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
+</Project>

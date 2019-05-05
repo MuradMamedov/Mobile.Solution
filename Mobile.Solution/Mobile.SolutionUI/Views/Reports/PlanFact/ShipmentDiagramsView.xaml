@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Mobile.Solution.UI.Views"
+             xmlns:tabScrollView="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:viewModels="clr-namespace:Mobile.Solution.UI.ViewModels"
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             x:Class="Mobile.Solution.UI.Views.ShipmentDiagramsView">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <tabScrollView:TemplateSelector x:Key="TemplateSelector">
+                <tabScrollView:TemplateSelector.Templates>
+                    <tabScrollView:DataTemplateWrapper x:TypeArguments="viewModels:ShipmentDiagramsHistogramViewModel">
+                        <tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:ShipmentDiagramsHistogramView />
+                            </DataTemplate>
+                        </tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                    </tabScrollView:DataTemplateWrapper>
+                       <tabScrollView:DataTemplateWrapper x:TypeArguments="viewModels:ShipmentDiagramsHistogramDailyViewModel">
+                        <tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:ShipmentDiagramsHistogramDailyView />
+                            </DataTemplate>
+                        </tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                    </tabScrollView:DataTemplateWrapper>
+                    <tabScrollView:DataTemplateWrapper x:TypeArguments="viewModels:ShipmentDiagramsLinearViewModel">
+                        <tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:ShipmentDiagramsLinearView />
+                            </DataTemplate>
+                        </tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                    </tabScrollView:DataTemplateWrapper>
+                    <tabScrollView:DataTemplateWrapper x:TypeArguments="viewModels:ShipmentDiagramsPieViewModel">
+                        <tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:ShipmentDiagramsPieView />
+                            </DataTemplate>
+                        </tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                    </tabScrollView:DataTemplateWrapper>
+                </tabScrollView:TemplateSelector.Templates>
+            </tabScrollView:TemplateSelector>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <ScrollView>
+            <Frame HasShadow="false"
+                   CornerRadius="3"
+                   BackgroundColor="Transparent"
+                   OutlineColor="{StaticResource ShipmentTypeSelectedColor}"
+                   Padding="0">
+                <customControls:TemplateContentView TemplateSelector="{StaticResource TemplateSelector}"
+                                                    x:Name="ContentView"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    ViewModel="{Binding SelectedDiagram}" />
+            </Frame>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

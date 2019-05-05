@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Mobile.Solution.UI.ViewModels"
+             xmlns:tabScrollView="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:helper="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+             xmlns:views="clr-namespace:Mobile.Solution.UI.Views"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             x:Class="Mobile.Solution.UI.Views.ParkProfitView"
+             Title="{helper:Translate Text=ParkProfitReport}">
+    <ContentPage.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <helper:TabSelectedColorConverter x:Key="TabSelectedColorConverter" />
+            <helper:BooleanNotConverter x:Key="BooleanNotConverter" />
+            <tabScrollView:TemplateSelector x:Key="TemplateSelector">
+                <tabScrollView:TemplateSelector.Templates>
+                    <tabScrollView:DataTemplateWrapper x:TypeArguments="viewModels:ProfitDiagramsViewModel">
+                        <tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:ProfitDiagramsView />
+                            </DataTemplate>
+                        </tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                    </tabScrollView:DataTemplateWrapper>
+                </tabScrollView:TemplateSelector.Templates>
+            </tabScrollView:TemplateSelector>
+
+            <DataTemplate x:Key="ItemTemplate">
+                <StackLayout Padding="5" Spacing="0"
+                             HeightRequest="30"
+                             BackgroundColor="{Binding IsSelected, Converter={StaticResource TabSelectedColorConverter}, ConverterParameter=TabSelectedColor|TabUnSelectedColor}">
+                    <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Header}"
+                           VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" />
+                </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView IsClippedToBounds="True"
+                BackgroundColor="{StaticResource BackgroundColor}">
+        <Grid Margin="5, 10, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Style="{StaticResource MainLabelStyle}"
+                           Text="Выбранные парки"
+                           Grid.Column="0"
+                           VerticalTextAlignment="Center"
+                           VerticalOptions="Center" />
+                    <Frame Grid.Column="1"
+                           VerticalOptions="Center">
+                        <Label Style="{StaticResource MainLabelStyle}"
+                               Text="{Binding SelectedParksNames}"
+                               TextColor="{StaticResource TextColor}"
+                               VerticalTextAlignment="Center" />
+                    </Frame>
+                    <Button Text="{helper:Translate Edit}" Grid.Column="2"
+
+                            Margin="0, 0, 10, 0"
+                            Style="{StaticResource MainButtonStyle}"
+                            VerticalOptions="Center"
+                            Command="{Binding CommandSelectParks}" />
+                </Grid>
+                <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="0, 5, 0, 0">
+                    <Label Style="{StaticResource MainLabelStyle}"
+
+                           Text="Период" VerticalTextAlignment="Center" />
+                    <DatePicker Margin="5, 0, 0, 0"
+                                Date="{Binding DateFrom}"
+                                Format="dd-MMMM-yyyy" />
+                    <DatePicker Margin="5, 0, 0, 0"
+                                Date="{Binding DateTo}"
+                                Format="dd-MMMM-yyyy" />
+                </StackLayout>
+                <Button Grid.Row="2" Text="Построить отчет"
+                        Margin="0, 5, 0, 0"
+                        Style="{StaticResource MainButtonStyle}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanNotConverter}}"
+                        Command="{Binding CommandAccept}" />
+            </Grid>
+            <Grid Grid.Row="0" BackgroundColor="Black"
+                  Opacity="0.2"
+                  IsVisible="{Binding IsBusy}">
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Color="White" />
+            </Grid>
+            <tabScrollView:TabbedView Grid.Row="1" ItemsSource="{Binding Tabs}"
+                                      VerticalOptions="Start"
+                                      ItemTemplate="{StaticResource ItemTemplate}"
+                                      TemplateSelector="{StaticResource TemplateSelector}" />
+        </Grid>
+    </ScrollView>
+</ContentPage>

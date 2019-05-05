@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="Mobile.Solution.UI.Theme">
+
+    <Color x:Key="TabSelectedColor">#2B586F</Color>
+    <Color x:Key="TabUnSelectedColor">#F1F5F6</Color>
+    <Color x:Key="TabSelectedTextColor">White</Color>
+    <Color x:Key="TabUnSelectedTextColor">#2B586F</Color>
+    <Color x:Key="DotSelectedColor">Black</Color>
+    <Color x:Key="DotUnSelectedColor">Gray</Color>
+    <Color x:Key="ReportSelectedColor">#FFA000</Color>
+    <Color x:Key="ReportUnSelectedColor">#1F2A32</Color>
+    <Color x:Key="ReportTextColor">#275166</Color>
+    <Color x:Key="ReportTextSelectedColor">#FFA000</Color>
+    <Color x:Key="ReportTextUnSelectedColor">#AAAAAA</Color>
+    <Color x:Key="AcceptEnabledColor">#FFA000</Color>
+    <Color x:Key="AcceptDisabledColor">#E0E1E3</Color>
+    <Color x:Key="EnabledColor">#2B586F</Color>
+    <Color x:Key="DisabledColor">Gray</Color>
+    <Color x:Key="DetailsTabSelectedColor">#40AEB9C2</Color>
+    <Color x:Key="DetailsTabUnSelectedColor">#FAFBFD</Color>
+    <Color x:Key="BreadCrumbSelectedColor">#C6D2D9</Color>
+    <Color x:Key="BreadCrumbUnSelectedColor">#FAFBFD</Color>
+    <Color x:Key="BreadCrumbSelectedTextColor">#3D4246</Color>
+    <Color x:Key="BreadCrumbUnSelectedTextColor">#8A3D4246</Color>
+    <Color x:Key="ShipmentTypeSelectedColor">#40AEB9C2</Color>
+    <Color x:Key="ShipmentTypeUnSelectedColor">#FFFFFF</Color>
+    
+    <Color x:Key="CalendarHeaderColor">#B23D4246</Color>
+    <Color x:Key="CalendarDateCellColor">#43484C</Color>
+    <Color x:Key="CalendarDateSelectedCellColor">#2B586F</Color>
+    
+    <Color x:Key="BackgroundColor">#FAFBFD</Color>
+    <Color x:Key="TabsBackgroundColor">#1F2A32</Color>
+    <Color x:Key="ButtonColor">#2B586F</Color>
+    <Color x:Key="ButtonColorLight">#7B777F</Color>
+    <Color x:Key="ButtonTextColor">White</Color>
+    <Color x:Key="TextColor">#2B586F</Color>
+    <Color x:Key="TextColorA">#A0AAB2</Color>
+    <Color x:Key="FrameBorderColor">#322B586F</Color>
+    <Color x:Key="ChartBackgroundColor">White</Color>
+    <Color x:Key="AccentColor">#FFA000</Color>
+    <Color x:Key="FactsColor">Gray</Color>
+    <Color x:Key="OverfullfilmentsColor">#259400</Color>
+    <Color x:Key="ShortagesColor">#FF3840</Color>
+    
+    <Style x:Key="MainLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+    </Style>
+     <Style x:Key="RegCardReasonLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="FontSize" Value="Small" />
+    </Style>
+
+    <Style x:Key="MainButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource ButtonColor}" />
+        <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+        <Setter Property="BorderRadius" Value="0" />
+    </Style>
+
+	<Style x:Key="SliderButtonStyle" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+        <Setter Property="BorderRadius" Value="0" />
+    </Style>
+
+    <Style x:Key="PopupButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="FontSize" Value="Medium"/>
+    </Style>
+
+    <Style x:Key="ChartTitleStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="FontSize" Value="Micro" />
+    </Style>
+
+    <DataTemplate x:Key="ShortagesChartLabelTemplate">
+        <StackLayout Spacing="0" Padding="0" IsVisible="{Binding IsVisible}">
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Plan}" FontSize="Micro"
+                   HorizontalOptions="Center" />
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding DeviationPercent}" FontSize="Micro"
+                   TextColor="{StaticResource ShortagesColor}" HorizontalOptions="Center" />
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding DisplayValue, StringFormat='-{0:F0}'}"
+                   FontSize="Micro" TextColor="{StaticResource ShortagesColor}" HorizontalOptions="Center" />
+        </StackLayout>
+    </DataTemplate>
+    <DataTemplate x:Key="OverFullfilmentChartLabelTemplate">
+        <StackLayout Spacing="0" Padding="0" IsVisible="{Binding IsVisible}">
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Plan}" FontSize="Micro"
+                   HorizontalOptions="Center" />
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding DeviationPercent}" FontSize="Micro"
+                   TextColor="{StaticResource OverfullfilmentsColor}" HorizontalOptions="Center" />
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding DisplayValue}" FontSize="Micro" TextColor="{StaticResource OverfullfilmentsColor}"
+                   HorizontalOptions="Center" />
+        </StackLayout>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DefaultChartLabelTemplate">
+        <StackLayout Spacing="0" Padding="0" IsVisible="{Binding IsVisible}">
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding DisplayValue}"
+                   FontSize="Micro"
+                   TextColor="White" HorizontalOptions="Center" />
+        </StackLayout>
+    </DataTemplate>
+     <DataTemplate x:Key="LinearPlansChartLabelTemplate">
+        <StackLayout Spacing="0" Padding="0" BackgroundColor="White">
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding YValue}"
+                   FontSize="Micro"
+                   TextColor="Black" HorizontalOptions="Center" />
+        </StackLayout>
+    </DataTemplate>
+      <DataTemplate x:Key="LinearFactsChartLabelTemplate">
+        <StackLayout Spacing="0" Padding="0" BackgroundColor="White">
+            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding YValue}"
+                   FontSize="Micro"
+                   TextColor="Green" HorizontalOptions="Center" />
+        </StackLayout>
+    </DataTemplate>
+</ResourceDictionary>

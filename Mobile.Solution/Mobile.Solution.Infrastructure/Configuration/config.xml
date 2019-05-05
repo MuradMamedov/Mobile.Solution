@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+  <rest-api-address>https://test.com/</rest-api-address>
+  <rest-api-plan>https://test.com/</rest-api-plan>
+  <rest-api-fact>https://test.com/</rest-api-fact>
+  <rest-api-regCard>https://test.com/</rest-api-regCard>
+  <rest-api-planFactFile>https://test.com/</rest-api-planFactFile>
+  <rest-dict-update-address>https://test.com/</rest-dict-update-address>
+  <rest-status-address>https://test.com/</rest-status-address>
+  <rest-error-address>https://test.com/</rest-error-address>
+  <rest-update-address>https://test.com/</rest-update-address>
+</config>

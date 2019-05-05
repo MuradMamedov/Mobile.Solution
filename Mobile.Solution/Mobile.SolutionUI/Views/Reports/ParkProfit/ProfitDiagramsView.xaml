@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:custom="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:viewModels="clr-namespace:Mobile.Solution.UI.ViewModels;assembly=Mobile.Solution.UI"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             xmlns:helpers="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+             x:Class="Mobile.Solution.UI.Views.ProfitDiagramsView">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <helpers:TabSelectedColorConverter x:Key="TabSelectedColorConverter" />
+            <custom:TemplateSelector x:Key="TemplateSelector">
+                <custom:TemplateSelector.Templates>
+                    <custom:DataTemplateWrapper x:TypeArguments="viewModels:ProfitDiagramsRevenueNetWoViewModel">
+                        <custom:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <chart:SfChart BackgroundColor="{StaticResource ChartBackgroundColor}">
+                                    <chart:SfChart.ChartBehaviors>
+                                        <chart:ChartZoomPanBehavior ZoomMode="X" />
+                                    </chart:SfChart.ChartBehaviors>
+                                    <chart:SfChart.Title>
+                                        <chart:ChartTitle
+                                            Text="Доходная ставка за вычетом порожнего, руб./вагон сутки с НДС"
+                                            TextAlignment="Start" />
+                                    </chart:SfChart.Title>
+                                    <chart:SfChart.PrimaryAxis>
+                                        <chart:DateTimeAxis LabelsIntersectAction="MultipleRows" />
+                                    </chart:SfChart.PrimaryAxis>
+                                    <chart:SfChart.SecondaryAxis>
+                                        <chart:NumericalAxis />
+                                    </chart:SfChart.SecondaryAxis>
+
+                                    <chart:SfChart.Series>
+                                        <chart:FastLineSeries ItemsSource="{Binding RevenueNetWoEmpty}"
+                                                              XBindingPath="XValue"
+                                                              YBindingPath="YValue">
+                                            <chart:FastLineSeries.DataMarker>
+                                                <chart:ChartDataMarker ShowLabel="True">
+                                                    <chart:ChartDataMarker.LabelStyle>
+                                                        <chart:DataMarkerLabelStyle TextColor="Black"
+                                                                                    BackgroundColor="Transparent" />
+                                                    </chart:ChartDataMarker.LabelStyle>
+                                                </chart:ChartDataMarker>
+                                            </chart:FastLineSeries.DataMarker>
+                                        </chart:FastLineSeries>
+
+                                        <chart:FastLineSeries ItemsSource="{Binding Regression}"
+                                                              XBindingPath="XValue"
+                                                              YBindingPath="YValue" />
+                                    </chart:SfChart.Series>
+                                </chart:SfChart>
+                            </DataTemplate>
+                        </custom:DataTemplateWrapper.WrappedTemplate>
+                    </custom:DataTemplateWrapper>
+                    <custom:DataTemplateWrapper x:TypeArguments="viewModels:ProfitDiagramsEmptyInLoadShare">
+                        <custom:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <chart:SfChart BackgroundColor="{StaticResource ChartBackgroundColor}">
+                                    <chart:SfChart.Title>
+                                        <chart:ChartTitle Text="Доля порожнего в груженом" TextAlignment="Start" />
+                                    </chart:SfChart.Title>
+                                    <chart:SfChart.PrimaryAxis>
+                                        <chart:DateTimeAxis LabelsIntersectAction="MultipleRows" />
+                                    </chart:SfChart.PrimaryAxis>
+                                    <chart:SfChart.SecondaryAxis>
+                                        <chart:NumericalAxis />
+                                    </chart:SfChart.SecondaryAxis>
+
+                                    <chart:SfChart.Series>
+                                        <chart:ColumnSeries ItemsSource="{Binding EmptyInLoadShare}"
+                                                            XBindingPath="XValue"
+                                                            YBindingPath="YValue">
+                                            <chart:ColumnSeries.DataMarker>
+                                                <chart:ChartDataMarker ShowLabel="True" LabelContent="Percentage">
+                                                    <chart:ChartDataMarker.LabelStyle>
+                                                        <chart:DataMarkerLabelStyle TextColor="Black" Angle="90"
+                                                                                    BackgroundColor="Transparent" />
+                                                    </chart:ChartDataMarker.LabelStyle>
+                                                </chart:ChartDataMarker>
+                                            </chart:ColumnSeries.DataMarker>
+                                        </chart:ColumnSeries>
+                                    </chart:SfChart.Series>
+                                </chart:SfChart>
+                            </DataTemplate>
+                        </custom:DataTemplateWrapper.WrappedTemplate>
+                    </custom:DataTemplateWrapper>
+                    <custom:DataTemplateWrapper x:TypeArguments="viewModels:ProfitDiagramsInternalExternalViewModel">
+                        <custom:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <chart:SfChart BackgroundColor="{StaticResource ChartBackgroundColor}">
+                                    <chart:SfChart.Title>
+                                        <chart:ChartTitle Text="Соотношение экспорта и внутриросс. перевозок"
+                                                          TextAlignment="Start" />
+                                    </chart:SfChart.Title>
+                                    <chart:SfChart.PrimaryAxis>
+                                        <chart:DateTimeAxis LabelsIntersectAction="MultipleRows" />
+                                    </chart:SfChart.PrimaryAxis>
+                                    <chart:SfChart.SecondaryAxis>
+                                        <chart:NumericalAxis />
+                                    </chart:SfChart.SecondaryAxis>
+
+                                    <chart:SfChart.Series>
+                                        <chart:StackingColumn100Series ItemsSource="{Binding InternalCarriages}"
+                                                                       XBindingPath="XValue"
+                                                                       YBindingPath="YValue" />
+                                        <chart:StackingColumn100Series ItemsSource="{Binding ExternalCarriages}"
+                                                                       XBindingPath="XValue"
+                                                                       YBindingPath="YValue" />
+                                    </chart:SfChart.Series>
+                                </chart:SfChart>
+                            </DataTemplate>
+                        </custom:DataTemplateWrapper.WrappedTemplate>
+                    </custom:DataTemplateWrapper>
+                </custom:TemplateSelector.Templates>
+            </custom:TemplateSelector>
+            <DataTemplate x:Key="ItemTemplate">
+                <Image Source="{Binding ImageSource}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       Margin="5, 0, 0, 5"
+                       BackgroundColor="{Binding IsSelected, Converter={StaticResource TabSelectedColorConverter}, ConverterParameter=TabSelectedColor|TabUnSelectedColor}" />
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <custom:CarouselView ItemsSource="{Binding Items}"
+                             HeightRequest="600"
+                             ItemTemplate="{StaticResource ItemTemplate}"
+                             TemplateSelector="{StaticResource TemplateSelector}" />
+    </ContentView.Content>
+</ContentView>

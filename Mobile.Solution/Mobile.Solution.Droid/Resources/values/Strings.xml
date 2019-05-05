@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+  <string name="appName">Mobile.Solution.Droid</string>
+  <string name="alertError">Ошибка</string>
+</resources>

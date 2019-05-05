@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            xmlns:helper="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+            xmlns:views="clr-namespace:Mobile.Solution.UI.Views"
+            xmlns:viewModels="clr-namespace:Mobile.Solution.UI.ViewModels"
+            xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+            xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+            x:Class="Mobile.Solution.UI.Views.ShipmentDiagramsPieView">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <helper:TabSelectedColorConverter x:Key="TabSelectedColorConverter" />
+            <helper:TabSelectedTextAttributesConverter x:Key="TabSelectedTextAttributesConverter" />
+            <customControls:TemplateSelector x:Key="TemplateSelector">
+            <customControls:TemplateSelector.Templates>
+                <customControls:DataTemplateWrapper x:TypeArguments="viewModels:ShipmentCollectionViewModel">
+                    <customControls:DataTemplateWrapper.WrappedTemplate>
+                        <DataTemplate>
+                            <views:ShipmentPieCollectionView/>
+                        </DataTemplate>
+                    </customControls:DataTemplateWrapper.WrappedTemplate>
+                </customControls:DataTemplateWrapper>
+            </customControls:TemplateSelector.Templates>
+            </customControls:TemplateSelector>
+            <DataTemplate x:Key="ItemTemplate">
+                <Frame HasShadow="false"
+                       BackgroundColor="{Binding IsSelected, Converter={StaticResource TabSelectedColorConverter}, ConverterParameter=ShipmentTypeSelectedColor|ShipmentTypeUnSelectedColor}"
+                       CornerRadius="0"
+                       Padding="0"
+                       OutlineColor="{StaticResource ShipmentTypeSelectedColor}">
+                    <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Header}"
+                           HeightRequest="50"
+                           WidthRequest="118"
+                           FontAttributes="{Binding IsSelected, Converter={StaticResource TabSelectedTextAttributesConverter}}"
+                           TextColor="{StaticResource ReportTextColor}"
+                           FontSize="16"
+                           VerticalOptions="CenterAndExpand" 
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center" />
+                </Frame>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <customControls:TabbedView ItemsSource="{Binding Tabs}"
+                                   Padding="0"
+                                   BackgroundColor="{StaticResource BackgroundColor}"
+                                   ItemTemplate="{StaticResource ItemTemplate}"
+                                   TemplateSelector="{StaticResource TemplateSelector}" />
+    </ContentView.Content>
+</ContentView>

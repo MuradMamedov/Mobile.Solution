@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Mobile.Solution.UI.ViewModels"
+             xmlns:tabScrollView="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:views="clr-namespace:Mobile.Solution.UI.Views"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             x:Class="Mobile.Solution.UI.Views.ShipmentHistogramDailyCollectionView">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <tabScrollView:TemplateSelector x:Key="TemplateSelector">
+                <tabScrollView:TemplateSelector.Templates>
+                    <tabScrollView:DataTemplateWrapper x:TypeArguments="viewModels:ShipmentViewModel">
+                        <tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:ShipmentHistogramDailyView/>
+                            </DataTemplate>
+                        </tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                    </tabScrollView:DataTemplateWrapper>
+                </tabScrollView:TemplateSelector.Templates>
+            </tabScrollView:TemplateSelector>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid RowSpacing="0"
+              Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <customControls:EnumPicker x:Name="Picker"
+                                       ItemsSource="{Binding PeriodSections.ValuesList}"
+                                       x:TypeArguments="viewModels:PeriodSection"
+                                       SelectedItem="{Binding PeriodSections.SelectedValue}"
+                                       DisplayMemberPath="Value"
+                                       Margin="10,5,10,5"
+                                       IsVisible="{Binding IsMonth}"
+                                       HeightRequest="35"/>
+            <Label x:Name="Label"
+                   Text="Период" 
+                   InputTransparent="true"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Start"
+                   VerticalTextAlignment="Start"
+                   Margin="17,6,0,0"
+                   Opacity="0.6"
+                   FontSize="Micro"
+                   Style="{StaticResource MainLabelStyle}"/>
+            <Label Text="{Binding DateLabelText}" 
+                   HeightRequest="35"
+                   InputTransparent="true"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   IsVisible="{Binding DateLabelIsVisible}"
+                   Style="{StaticResource MainLabelStyle}"/>
+            <customControls:TemplateContentView TemplateSelector="{StaticResource TemplateSelector}"
+                                                x:Name="Views"
+                                                Grid.Row="1"
+                                                ViewModel="{Binding SelectedShipment}" />
+            <Button Image="vertical_dots.png"
+                    HeightRequest="50"
+                    WidthRequest="30"
+                    Grid.Row="1"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Clicked="Handle_Clicked"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

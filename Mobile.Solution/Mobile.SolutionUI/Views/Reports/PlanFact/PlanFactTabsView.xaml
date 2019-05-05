@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tabScrollView="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             xmlns:viewModels="clr-namespace:Mobile.Solution.UI.ViewModels"
+             xmlns:helper="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+             xmlns:views="clr-namespace:Mobile.Solution.UI.Views"
+             x:Class="Mobile.Solution.UI.Views.PlanFactTabsView"
+             Title="Сохраненные отчеты"
+             BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <helper:TabSelectedColorConverter x:Key="TabSelectedColorConverter" />
+            <tabScrollView:TemplateSelector x:Key="TemplateSelector">
+                <tabScrollView:TemplateSelector.Templates>
+                    <tabScrollView:DataTemplateWrapper x:TypeArguments="viewModels:PlanFactCollectionViewModel">
+                        <tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:PlanFactCollectionView />
+                            </DataTemplate>
+                        </tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                    </tabScrollView:DataTemplateWrapper>
+                </tabScrollView:TemplateSelector.Templates>
+            </tabScrollView:TemplateSelector>
+
+            <DataTemplate x:Key="ItemTemplate">
+                <StackLayout Margin="20,10,0,0"
+                             Padding="0"
+                             Spacing="0">
+                    <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Header}"
+                           TextColor="{Binding IsSelected, Converter={StaticResource TabSelectedColorConverter}, ConverterParameter=ReportTextSelectedColor|ReportTextUnSelectedColor}"
+                           HeightRequest="40"
+                           FontSize="Small"
+                           FontAttributes="Bold"
+                           VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" />
+                    <Image HeightRequest="7"
+                           WidthRequest="7"
+                           HorizontalOptions="Center"
+                           BackgroundColor="{Binding IsSelected, Converter={StaticResource TabSelectedColorConverter}, ConverterParameter=ReportTextSelectedColor|ReportTextUnSelectedColor}"
+                           IsVisible="{Binding IsSelected}"
+                           Source="hollowCircleTabs.png" />
+                </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+	<Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+        	<tabScrollView:TabbedView ItemsSource="{Binding Tabs}"
+        	                          Padding="0"
+        							  BackgroundColor="{StaticResource TabsBackgroundColor}"
+        	                          ItemTemplate="{StaticResource ItemTemplate}"
+                                      SelectedItem="{Binding SelectedItem}"
+        	                          TemplateSelector="{StaticResource TemplateSelector}" />
+            <StackLayout Margin="10,0,10,0"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         IsVisible="{Binding IsEmpty}"
+                         Spacing="0" Padding="0">
+                <Label Text="Нет сохраненных отчетов."
+                                   Margin="0,0,0,15"
+                                   TextColor="#8C8C8C"
+                                   Style="{StaticResource MainLabelStyle}"
+                                   FontSize="Medium"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center" />
+                <Label Text="Чтобы создать отчет, нажмите кнопку Новый отчет, выберите тип отчета и параметры."
+                                   TextColor="#8C8C8C"
+                                   Style="{StaticResource MainLabelStyle}"
+                                   FontSize="Small"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center" />
+            </StackLayout>
+        </Grid>
+        <Button Text="Новый отчет"
+                Grid.Row="1"
+                BackgroundColor="{StaticResource AccentColor}"
+                Style="{StaticResource MainButtonStyle}"
+                FontSize="Medium"
+                Command="{Binding CommandCreate}" />
+	</Grid>
+</ContentPage>

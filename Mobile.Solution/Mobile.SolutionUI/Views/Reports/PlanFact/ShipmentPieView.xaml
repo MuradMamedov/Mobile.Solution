@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Solution.UI.Views.ShipmentPieView"
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <DataTemplate x:Key="LegendTemplate">
+                <Grid RowSpacing="0" Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Padding="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Padding="0" Orientation="Horizontal">
+                            <Image BackgroundColor="{Binding Color}"
+                                   WidthRequest="40"
+                                   Source="hollowCircle.png" />
+                            <Label Text="{Binding XValue}"
+                                   TextColor="#43484C"
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"
+                                   Style="{StaticResource MainLabelStyle}" 
+                                   LineBreakMode="NoWrap"/>
+                        </StackLayout>
+                        <Label Text="{Binding YValue}" 
+                               TextColor="#43484C"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               Style="{StaticResource MainLabelStyle}"
+                               Grid.Column="1"
+                               Margin="20,0,0,0"
+                               LineBreakMode="NoWrap"/>
+                        <Label Text="{Binding PercentageValueStr}" 
+                               TextColor="#43484C"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               Style="{StaticResource MainLabelStyle}"
+                               Grid.Column="2"
+                               LineBreakMode="NoWrap"/>
+                    </Grid>
+                    <BoxView Color="#A0AAB2"
+                             Grid.Row="3"
+                             Opacity="0.5"
+                             HeightRequest="1" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout Padding="0" Spacing="0"
+                     BackgroundColor="{StaticResource ChartBackgroundColor}">
+            <Label Text="{Binding Title}"
+                   BackgroundColor="{StaticResource ChartBackgroundColor}"
+                   Margin="20,0,40,0"
+                   Style="{StaticResource ChartTitleStyle}" />
+            <chart:SfChart BackgroundColor="{StaticResource ChartBackgroundColor}"
+                           x:Name="Chart" HeightRequest="250">
+                <chart:SfChart.ChartBehaviors>
+                    <chart:ChartZoomPanBehavior />
+                </chart:SfChart.ChartBehaviors>
+                <chart:SfChart.PrimaryAxis>
+                <chart:CategoryAxis LabelRotationAngle="{Binding LabelRotationAngle}">
+                    <chart:CategoryAxis.Title>
+                        <chart:ChartAxisTitle Text="{Binding AxisTitle}"/>
+                    </chart:CategoryAxis.Title>
+                </chart:CategoryAxis>
+                </chart:SfChart.PrimaryAxis>
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis Minimum="0"/>
+                </chart:SfChart.SecondaryAxis>
+                <chart:SfChart.Series>
+                    <chart:PieSeries ItemsSource="{Binding PieChartItems}"
+                                     XBindingPath="XValue"
+                                     YBindingPath="YValue">
+                        <chart:PieSeries.DataMarker>
+                            <chart:ChartDataMarker ShowLabel="false"/>
+                        </chart:PieSeries.DataMarker>
+                        <chart:PieSeries.ColorModel>
+                            <chart:ChartColorModel Palette="Custom" CustomBrushes="{Binding Brushes}"/>
+                        </chart:PieSeries.ColorModel>
+                    </chart:PieSeries>
+                </chart:SfChart.Series>
+            </chart:SfChart>
+            <StackLayout Spacing="0" 
+                         Padding="0"
+                         HeightRequest="50"
+                         VerticalOptions="End">
+                <BoxView Color="#A0AAB2"
+                         HeightRequest="1" />
+                <Grid Padding="0"
+                      Margin="10,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding AxisTitle}"
+                           Style="{StaticResource MainLabelStyle}"
+                           LineBreakMode="TailTruncation"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center" />
+                    <Image Source="expand.png"
+                           HeightRequest="30"
+                           x:Name="ExpandImg"
+                           Grid.Column="2"
+                           VerticalOptions="CenterAndExpand"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Handle_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                </Grid>
+            </StackLayout>
+            <customControls:StackLayoutList ItemsSource="{Binding PieChartItems}"
+                                            Margin="10,10,10,0" Spacing="0" Padding="0"
+                                            x:Name="Legend"
+                                            ItemTemplate="{StaticResource LegendTemplate}"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

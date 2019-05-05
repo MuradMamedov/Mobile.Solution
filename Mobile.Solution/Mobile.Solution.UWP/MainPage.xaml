@@ -1,0 +1,5 @@
+﻿<forms:WindowsPage
+    x:Class="Mobile.Solution.UWP.MainPage"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:forms="using:Xamarin.Forms.Platform.UWP">
+</forms:WindowsPage>

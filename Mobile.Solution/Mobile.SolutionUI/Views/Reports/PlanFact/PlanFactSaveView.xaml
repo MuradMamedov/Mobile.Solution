@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+                 CloseWhenBackgroundIsClicked="false"
+                 x:Class="Mobile.Solution.UI.Views.PlanFactSaveView">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary MergedWith="ui:Theme" />
+    </pages:PopupPage.Resources>
+    <StackLayout VerticalOptions="End"
+                 Padding="0"
+                 Spacing="0">
+        <Frame VerticalOptions="EndAndExpand"
+               Margin="10,0,10,0"
+               CornerRadius="16"
+               BackgroundColor="White"
+               HasShadow="false" Padding="0" OutlineColor="{StaticResource FrameBorderColor}">
+            <StackLayout Padding="0"
+                         BackgroundColor="Transparent"
+                         Spacing="0">
+                <Editor Text="{Binding Name}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="60"
+                        TextColor="Black"/>
+                <BoxView Color="#A0AAB2"
+                         HeightRequest="1" />
+                <Button Text="Сохранить"
+                        Style="{StaticResource PopupButtonStyle}"
+                        HeightRequest="60"
+                        Clicked="ClosePopup"
+                        BorderRadius="16"
+                        IsEnabled="{Binding CanSave}"
+                        Command="{Binding CommandSave}" />
+            </StackLayout>
+        </Frame>
+        <Button Text="Отменить"
+                Clicked="ClosePopup"
+                Margin="10,7,10,15"
+                Style="{StaticResource PopupButtonStyle}"
+                BorderRadius="16"
+                HeightRequest="60"
+                FontAttributes="Bold"/>
+    </StackLayout>
+</pages:PopupPage>

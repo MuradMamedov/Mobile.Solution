@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             xmlns:helper="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+             xmlns:tabScrollView="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:viewModels="clr-namespace:Mobile.Solution.Infrastructure.CustomControls"
+             x:Class="Mobile.Solution.Infrastructure.CustomControls.SearchOrganisationPage"
+             BackgroundColor="White"
+             Title="{Binding PlaceHolder}">
+   <ContentPage.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <helper:TabSelectedTextAttributesConverter x:Key="TabSelectedTextAttributesConverter" />
+            <DataTemplate x:Key="SearchItemTemplate">
+                    <StackLayout Padding="0" Spacing="2" Margin="10,0,5,5">
+                        <Label Style="{StaticResource MainLabelStyle}" 
+                               FormattedText="{Binding FormattedText}"
+                               TextColor="Black"
+                               VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" />
+                        <Label Style="{StaticResource MainLabelStyle}" 
+                               Text="{Binding Value.DisplayName}"
+                               TextColor="Black" 
+                               Opacity="0.2"
+                               VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" />
+                    </StackLayout>
+            </DataTemplate>
+           <DataTemplate x:Key="ItemTemplate">
+              <Frame HasShadow="false"
+                       CornerRadius="0"
+                       Padding="0"
+                       HeightRequest="58"
+                       BackgroundColor="Transparent"
+                       Margin="5,5,0,0">
+                    <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Title}"
+                           FontAttributes="{Binding IsSelected, Converter={StaticResource TabSelectedTextAttributesConverter}}"
+                           HeightRequest="58"
+                           TextColor="{StaticResource ReportTextColor}"
+                           FontSize="16"
+                           VerticalOptions="CenterAndExpand" 
+                           VerticalTextAlignment="Center" />
+                </Frame>
+            </DataTemplate>
+            <tabScrollView:TemplateSelector x:Key="TemplateSelector">
+                <tabScrollView:TemplateSelector.Templates>
+                    <tabScrollView:DataTemplateWrapper x:TypeArguments="viewModels:SelectableViewModel">
+                        <tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <ContentView>
+                                    <ContentView.Content>
+                                        <Frame HorizontalOptions="FillAndExpand"
+                                               HasShadow="false" Padding="0"
+                                               OutlineColor="{StaticResource FrameBorderColor}">
+                                              <customControls:AutoCompleteView Suggestions="{Binding Items}"  
+                                                                             SelectedItem="{Binding SelectedItem}"
+                                                                             TextColor="Black"
+                                                                             SearchPath="{Binding SearchPath}"
+                                                                             PlaceHolderColor="Silver"
+                                                                             ShowSearchButton="false"
+                                                                             ItemTemplate="{StaticResource SearchItemTemplate}"
+                                                                             SearchBarHeightRequest="55"
+                                                                             Placeholder="{Binding PlaceHolder}"
+                                                                             Text="{Binding SearchText}"
+                                                                             AvailableSuggestions="{Binding AvailableSuggestions}"/>
+                                        </Frame>
+                                    </ContentView.Content>
+                                </ContentView>
+                            </DataTemplate>
+                        </tabScrollView:DataTemplateWrapper.WrappedTemplate>
+                    </tabScrollView:DataTemplateWrapper>
+                </tabScrollView:TemplateSelector.Templates>
+            </tabScrollView:TemplateSelector></ResourceDictionary>
+    </ContentPage.Resources>
+
+    <tabScrollView:TabbedView x:Name="TabbedView"
+                              VerticalOptions="StartAndExpand"
+                              Padding="0"
+                              BackgroundColor="{StaticResource BackgroundColor}"
+                              ItemTemplate="{StaticResource ItemTemplate}"
+                              TemplateSelector="{StaticResource TemplateSelector}" />
+</ContentPage>

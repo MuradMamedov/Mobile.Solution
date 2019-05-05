@@ -1,0 +1,2 @@
+MainPackage=C:\Users\0day\Documents\GitHub\Mobile.Solution\Mobile.Solution\Mobile.Solution.UWP\bin\x86\Release\Mobile.Solution.UWP_1.1.1.0_x86.appx
+SymbolPackage=C:\Users\0day\Documents\GitHub\Mobile.Solution\Mobile.Solution\Mobile.Solution.UWP\AppPackages\Mobile.Solution.UWP_1.1.1.0_Test\Mobile.Solution.UWP_1.1.1.0_x86.appxsym

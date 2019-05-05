@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+                 WidthRequest="250"
+                 HeightRequest="115"
+                 x:Class="Mobile.Solution.UI.Views.PlanFactOptionsViewTablet">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme" />
+    </ContentView.Resources>
+    <Grid Padding="0"
+          RowSpacing="0"
+          ColumnSpacing="0"
+          WidthRequest="250"
+          HeightRequest="115"
+          BackgroundColor="Transparent">
+        <Frame CornerRadius="8"
+               HasShadow="false" 
+               HeightRequest="100"
+               Padding="0" 
+               VerticalOptions="End"
+               BackgroundColor="White"
+               OutlineColor="{StaticResource FrameBorderColor}">
+            <StackLayout Padding="10"
+                         Spacing="0">
+                <Label Text="Изменить"
+                        Style="{StaticResource MainLabelStyle}"
+                        HeightRequest="60"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandEdit}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView Color="#A0AAB2"
+                         HeightRequest="1" />
+                <Label Text="Удалить отчет"
+                        Style="{StaticResource MainLabelStyle}"
+                        TextColor="#FF3840"
+                        HeightRequest="60"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandDelete}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Frame>
+        <Image Source="arrowPath.png"
+               VerticalOptions="Start"
+               HorizontalOptions="Start"
+               WidthRequest="58"
+               HeightRequest="16"
+               Margin="180,2,0,0"/>
+    </Grid>
+</ContentView>

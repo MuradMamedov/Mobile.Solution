@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="Mobile.Solution.Infrastructure.CustomControls.TabbedView"
+      xmlns:cv="clr-namespace:Mobile.Solution.Infrastructure.CustomControls">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <cv:ItemsView x:Name="Items" HorizontalOptions="FillAndExpand" />
+    <cv:TemplateContentView Grid.Row="1" x:Name="Content" />
+</Grid>

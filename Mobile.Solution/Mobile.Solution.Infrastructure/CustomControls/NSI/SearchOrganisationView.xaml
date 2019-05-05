@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             x:Class="Mobile.Solution.Infrastructure.CustomControls.SearchOrganisationView">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme"/>
+    </ContentView.Resources>
+	<ContentView.Content>
+        <SearchBar Text="{Binding SelectedItem.DisplayName}"
+               Style="{StaticResource MainLabelStyle}" 
+               TextColor="Black"
+               Margin="5,0,5,0"
+               HeightRequest="55"
+               WidthRequest="1"
+               BackgroundColor="Transparent"
+               Placeholder="{Binding PlaceHolder}"
+               Focused="Handle_Focused"
+               VerticalOptions="Center" />
+	</ContentView.Content>
+</ContentView>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Solution.UI.Views.RegCardsView"
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <DataTemplate x:Key="CodesTemplate">
+                <Grid RowSpacing="0" Padding="0">
+                  <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Padding="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding Code}"
+                               WidthRequest="35"
+                               Style="{StaticResource RegCardReasonLabelStyle}" 
+                               LineBreakMode="NoWrap"/>
+                        <Grid Padding="0"
+                              Grid.Column="1"
+                              RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                            <Label Text="{Binding Descr}" Grid.Row="0"
+                                   FontSize="Small"
+                                   Style="{StaticResource RegCardReasonLabelStyle}"/>
+                            <Label Text="{Binding Note}" Grid.Row="2" 
+                                   Margin="0,5,0,0"
+                                   Style="{StaticResource RegCardReasonLabelStyle}" 
+                                   TextColor="#A0AAB2"/>
+                        </Grid>
+                        <Label Text="{Binding Resp}" 
+                               Style="{StaticResource RegCardReasonLabelStyle}"
+                               Grid.Column="2" 
+                               WidthRequest="100"
+                               LineBreakMode="TailTruncation"/>
+                    </Grid>
+                    <BoxView Color="#E4E4E4"
+                             Grid.Row="2" Margin="0,5,0,10"
+                             HeightRequest="1" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout Padding="0" Spacing="0"
+                     BackgroundColor="{StaticResource ChartBackgroundColor}">
+            <Label Text="{Binding Title}"
+                   BackgroundColor="{StaticResource ChartBackgroundColor}"
+                   Margin="20,10,0,0"
+                   Style="{StaticResource ChartTitleStyle}" />
+            <chart:SfChart HeightRequest="250"
+                           BackgroundColor="{StaticResource ChartBackgroundColor}">
+                <chart:SfChart.ChartBehaviors>
+                    <chart:ChartZoomPanBehavior ZoomMode="X" />
+                </chart:SfChart.ChartBehaviors>
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis>
+                        <chart:CategoryAxis.Title>
+                            <chart:ChartAxisTitle Text="Код причины"/>
+                        </chart:CategoryAxis.Title>
+                    </chart:CategoryAxis>
+                </chart:SfChart.PrimaryAxis>
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis Maximum="{Binding MaximumValue}" Minimum="0" RangePadding="Additional"/>
+                </chart:SfChart.SecondaryAxis>
+                <chart:SfChart.Series>
+                    <chart:ColumnSeries ItemsSource="{Binding Items}"
+                                        XBindingPath="Label"
+                                        YBindingPath="Value"
+                                        SelectedDataPointColor="#FFDE73"
+                                        EnableDataPointSelection="True"
+                                        Color="#FFBA40">
+
+                        <chart:ColumnSeries.DataMarker>
+                            <chart:ChartDataMarker>
+                                <chart:ChartDataMarker.LabelTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Spacing="0" Padding="0">
+                                            <Label Style="{StaticResource MainLabelStyle}"
+                                                   Text="{Binding Value}"
+                                                   FontSize="Micro" TextColor="#5B5B5B" />
+                                            <Label Style="{StaticResource MainLabelStyle}"
+                                                   Margin="2, 0, 0, 0"
+                                                   Text="{Binding Percent, StringFormat='{0:P0}'}"
+                                                   FontSize="Micro" TextColor="#5B5B5B" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </chart:ChartDataMarker.LabelTemplate>
+                                <chart:ChartDataMarker.LabelStyle>
+
+                                    <chart:DataMarkerLabelStyle LabelPosition="Outer" />
+
+                                </chart:ChartDataMarker.LabelStyle>
+                            </chart:ChartDataMarker>
+                        </chart:ColumnSeries.DataMarker>
+                    </chart:ColumnSeries>
+                </chart:SfChart.Series>
+            </chart:SfChart>
+            <StackLayout Spacing="0" 
+                         Padding="0"
+                         Margin="5,0,0,0"
+                         VerticalOptions="End">
+                <BoxView Color="#E4E4E4"
+                         HeightRequest="1" />
+                <Grid Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Код причины"
+                           FontAttributes="Bold"
+                           Style="{StaticResource RegCardReasonLabelStyle}"
+                           LineBreakMode="TailTruncation"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center" />
+                    <Image Source="expand.png"
+                           x:Name="ExpandImg"
+                           HeightRequest="30"
+                           IsVisible="false"
+                           Rotation="180"
+                           Grid.Column="2"
+                           VerticalOptions="CenterAndExpand"/>
+                    <Label Text="Ответств."
+                           FontAttributes="Bold"
+                           Grid.Column="2"
+                           Margin="0,0,20,0"
+                           IsVisible="true"
+                           x:Name="RespLabel"
+                           HeightRequest="40"
+                           Style="{StaticResource RegCardReasonLabelStyle}"
+                           LineBreakMode="TailTruncation"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center" />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Handle_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                </Grid>
+                <BoxView Color="#E4E4E4"
+                         HeightRequest="1" />
+            </StackLayout>
+            <StackLayout x:Name="Legend"
+                         Padding="0"
+                         IsVisible="true"
+                         Margin="10,10,0,0"
+                         Spacing="0">
+                <customControls:StackLayoutList ItemsSource="{Binding CodesDescriptions}"
+                                                Spacing="0"
+                                                Padding="0"
+                                                LayoutChanged="Handle_LayoutChanged"
+                                                ItemTemplate="{StaticResource CodesTemplate}"/>
+                <Image Source="expand.png" 
+                       VerticalOptions="CenterAndExpand">
+                     <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Handle_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

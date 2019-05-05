@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Solution.UI.Views.ShipmentHistogramView"
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:helpers="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+             xmlns:viewModels="clr-namespace:Mobile.Solution.UI.ViewModels;assembly=Mobile.Solution.UI"
+             xmlns:custom="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             HeightRequest="{Binding HeightRequest}"
+             BackgroundColor="{StaticResource ChartBackgroundColor}">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">TabSelectedImageConverter
+            <helpers:TabSelectedImageConverter x:Key="TabSelectedImageConverter" />
+            <custom:TemplateSelector x:Key="TemplateSelector">
+                <custom:TemplateSelector.Templates>
+                    <custom:DataTemplateWrapper x:TypeArguments="viewModels:ShipmentElementViewModel">
+                        <custom:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                    <StackLayout IsClippedToBounds="True"
+                                                 BackgroundColor="{StaticResource ChartBackgroundColor}">
+                                        <Label Text="{Binding Title}"
+                                               Margin="20,0,40,0"
+                                               Style="{StaticResource ChartTitleStyle}" />
+                                        <chart:SfChart BackgroundColor="{StaticResource ChartBackgroundColor}" 
+                                                       HeightRequest = "400"
+                                                       SelectionChanging="SfChart_SelectionChanging">
+                                            <chart:SfChart.ChartBehaviors>
+                                                <chart:ChartZoomPanBehavior />
+                                            </chart:SfChart.ChartBehaviors>
+                                            <chart:SfChart.PrimaryAxis>
+                                                <chart:CategoryAxis LabelsIntersectAction="MultipleRows"
+                                                                    LabelRotationAngle="{Binding LabelRotationAngle}">
+                                                    <chart:CategoryAxis.Title>
+                                                        <chart:ChartAxisTitle Text="{Binding AxisTitle}"/>
+                                                    </chart:CategoryAxis.Title>
+                                                </chart:CategoryAxis>
+                                            </chart:SfChart.PrimaryAxis>
+                                            <chart:SfChart.SecondaryAxis>
+                                                <chart:NumericalAxis Maximum="{Binding MaximumValue}" 
+                                                                     Minimum="0"
+                                                                     RangePadding="Additional" />
+                                            </chart:SfChart.SecondaryAxis>
+                                            <chart:SfChart.Series>
+                                                <chart:StackingColumnSeries ItemsSource="{Binding Requirements}"
+                                                                            XBindingPath="XValue"
+                                                                            YBindingPath="YValue"
+                                                                            Color="{StaticResource FactsColor}"
+                                                                            SelectedDataPointColor="{StaticResource FactsColor}"
+                                                                            EnableDataPointSelection="True">
+                                                    <chart:StackingColumnSeries.DataMarker>
+                                                        <chart:ChartDataMarker
+                                                            LabelTemplate="{StaticResource DefaultChartLabelTemplate}">
+                                                            <chart:ChartDataMarker.LabelStyle>
+
+                                                                <chart:DataMarkerLabelStyle LabelPosition="Inner" />
+
+                                                            </chart:ChartDataMarker.LabelStyle>
+                                                        </chart:ChartDataMarker>
+                                                    </chart:StackingColumnSeries.DataMarker>
+                                                </chart:StackingColumnSeries>
+
+                                                <chart:StackingColumnSeries
+                                                    ItemsSource="{Binding  OverFulfillments}"
+                                                    XBindingPath="XValue"
+                                                    YBindingPath="YValue"
+                                                    Color="{StaticResource OverfullfilmentsColor}"
+                                                    SelectedDataPointColor="{StaticResource OverfullfilmentsColor}"
+                                                    EnableDataPointSelection="True">
+                                                    <chart:StackingColumnSeries.DataMarker>
+                                                        <chart:ChartDataMarker
+                                                            LabelTemplate="{StaticResource OverFullfilmentChartLabelTemplate}">
+
+                                                            <chart:ChartDataMarker.LabelStyle>
+
+                                                                <chart:DataMarkerLabelStyle LabelPosition="Outer" />
+
+                                                            </chart:ChartDataMarker.LabelStyle>
+                                                        </chart:ChartDataMarker>
+                                                    </chart:StackingColumnSeries.DataMarker>
+                                                </chart:StackingColumnSeries>
+
+                                                <chart:StackingColumnSeries ItemsSource="{Binding Shortages}"
+                                                                            XBindingPath="XValue"
+                                                                            YBindingPath="YValue"
+                                                                            Color="{StaticResource ShortagesColor}"
+                                                                            SelectedDataPointColor="{StaticResource ShortagesColor}"
+                                                                            EnableDataPointSelection="True">
+                                                    <chart:StackingColumnSeries.DataMarker>
+                                                        <chart:ChartDataMarker
+                                                            LabelTemplate="{StaticResource ShortagesChartLabelTemplate}">
+                                                            <chart:ChartDataMarker.LabelStyle>
+
+                                                                <chart:DataMarkerLabelStyle LabelPosition="Outer" />
+
+                                                            </chart:ChartDataMarker.LabelStyle>
+                                                        </chart:ChartDataMarker>
+                                                    </chart:StackingColumnSeries.DataMarker>
+                                                </chart:StackingColumnSeries>
+
+                                            </chart:SfChart.Series>
+                                        </chart:SfChart>
+                                </StackLayout>
+                            </DataTemplate>
+                        </custom:DataTemplateWrapper.WrappedTemplate>
+                    </custom:DataTemplateWrapper>
+                </custom:TemplateSelector.Templates>
+            </custom:TemplateSelector>
+            <DataTemplate x:Key="ItemTemplate">
+                <Image HeightRequest="10"
+                        WidthRequest="10"
+                        Margin="0, 0, 0, 10"
+                        BackgroundColor="Transparent"
+                        Source="{Binding IsSelected, Converter={StaticResource TabSelectedImageConverter}, ConverterParameter=dot_selected.png|dot_unselected.png}" />
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <custom:CarouselView ItemsSource="{Binding Items}"
+                             LabelsHeight="20"
+                             IsLabelsVisible="{Binding IsLabelsVisible}"
+                             ItemTemplate="{StaticResource ItemTemplate}"
+                             TemplateSelector="{StaticResource TemplateSelector}" />
+    </ContentView.Content>
+</ContentView>

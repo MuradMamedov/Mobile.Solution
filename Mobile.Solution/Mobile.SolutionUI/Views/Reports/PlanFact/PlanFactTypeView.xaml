@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:helper="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+             Title="Тип отчета"
+             x:Class="Mobile.Solution.UI.Views.PlanFactTypeView">
+    <ContentPage.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <helper:TabSelectedColorConverter x:Key="TabSelectedColorConverter" />
+            <DataTemplate x:Key="ToggleItemTemplate">
+                <Frame IsEnabled="{Binding Value.IsEnabled}"
+                       HorizontalOptions="FillAndExpand"
+                       HasShadow="false" Padding="0"
+                       Margin="5,0,5,0"
+                       HeightRequest="120"
+                       WidthRequest="120"
+                       BackgroundColor="{Binding Value.IsSelected, Converter={StaticResource TabSelectedColorConverter}, 
+		                                                           ConverterParameter=TabSelectedColor|TabUnSelectedColor}"
+                       OutlineColor="{StaticResource FrameBorderColor}">
+                    <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Value.Header}"
+                           IsEnabled="{Binding Value.IsEnabled}"
+                           VerticalOptions="CenterAndExpand"
+                           BackgroundColor="Transparent"
+                           TextColor="{Binding Value.IsEnabled, Converter={StaticResource TabSelectedColorConverter}, 
+                                                           ConverterParameter=EnabledColor|DisabledColor}"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"/>
+                </Frame>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="0" Spacing="0">
+            <Label Text="Выберите тип отчета"
+                   Margin="0,10,0,10"
+                   TextColor="{StaticResource TextColor}"
+                   Style="{StaticResource MainLabelStyle}"
+                   FontSize="Small"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center" />
+            <customControls:ItemsView ItemsSource="{Binding Types}"
+                                      Margin="15,0,15,0"
+                                      ItemTemplate="{StaticResource ToggleItemTemplate}"
+                                      SelectedItem="{Binding Types.SelectedValue}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

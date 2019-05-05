@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+                 x:Class="Mobile.Solution.UI.Views.PlanFactOptionsView">
+    <ContentView.Resources>
+        <ResourceDictionary MergedWith="ui:Theme" />
+    </ContentView.Resources>
+    <StackLayout VerticalOptions="End"
+                 Padding="0"
+                 Spacing="0">
+        <Frame VerticalOptions="EndAndExpand"
+               Margin="10,0,10,0"
+               CornerRadius="16"
+               BackgroundColor="White"
+               HasShadow="false" Padding="0" OutlineColor="{StaticResource FrameBorderColor}">
+            <StackLayout Padding="0"
+                         Spacing="0">
+                <Button Text="Изменить"
+                        Style="{StaticResource PopupButtonStyle}"
+                        Clicked="ClosePopup"
+                        BorderRadius="16"
+                        HeightRequest="60"
+                        Command="{Binding CommandEdit}" />
+                <BoxView Color="#A0AAB2"
+                         HeightRequest="1" />
+                <Button Text="Удалить отчет"
+                        Style="{StaticResource PopupButtonStyle}"
+                        BorderRadius="16"
+                        HeightRequest="60"
+                        TextColor="#FF3840"
+                        Clicked="ClosePopup"
+                        Command="{Binding CommandDelete}" />
+            </StackLayout>
+        </Frame>
+        <Button Text="Отменить"
+                BorderRadius="16"
+                Clicked="ClosePopup"
+                HeightRequest="60"
+                FontAttributes="Bold"
+                Margin="10,7,10,15"
+                Style="{StaticResource PopupButtonStyle}" />
+    </StackLayout>
+</ContentView>

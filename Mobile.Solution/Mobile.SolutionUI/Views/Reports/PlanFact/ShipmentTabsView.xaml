@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Mobile.Solution.UI.ViewModels"
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:helper="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+             xmlns:views="clr-namespace:Mobile.Solution.UI.Views"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             Title="{Binding Header}"
+             x:Class="Mobile.Solution.UI.Views.ShipmentTabsView">
+    <ContentPage.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <helper:TabSelectedColorConverter x:Key="TabSelectedColorConverter" />
+            <helper:TabSelectedTextAttributesConverter x:Key="TabSelectedTextAttributesConverter" />
+            <helper:BooleanNotConverter x:Key="BooleanNotConverter" />
+            <customControls:TemplateSelector x:Key="TemplateSelector">
+                <customControls:TemplateSelector.Templates>
+                    <customControls:DataTemplateWrapper x:TypeArguments="viewModels:ShipmentDiagramsViewModel">
+                        <customControls:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:ShipmentDiagramsView/>
+                            </DataTemplate>
+                        </customControls:DataTemplateWrapper.WrappedTemplate>
+                    </customControls:DataTemplateWrapper>
+                    <customControls:DataTemplateWrapper x:TypeArguments="viewModels:RegCardCollectionViewModel">
+                        <customControls:DataTemplateWrapper.WrappedTemplate>
+                            <DataTemplate>
+                                <views:RegCardCollectionView />
+                            </DataTemplate>
+                        </customControls:DataTemplateWrapper.WrappedTemplate>
+                    </customControls:DataTemplateWrapper>
+                </customControls:TemplateSelector.Templates>
+            </customControls:TemplateSelector>
+
+            <DataTemplate x:Key="ItemTemplate">
+                <Frame HasShadow="false"
+                       CornerRadius="0"
+                       Padding="0"
+                       HeightRequest="58"
+                       BackgroundColor="Transparent"
+                       Margin="5,5,0,0">
+                    <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Header}"
+                           FontAttributes="{Binding IsSelected, Converter={StaticResource TabSelectedTextAttributesConverter}}"
+                           HeightRequest="58"
+                           TextColor="{StaticResource ReportTextColor}"
+                           FontSize="16"
+                           VerticalOptions="CenterAndExpand" 
+                           VerticalTextAlignment="Center" />
+                </Frame>
+            </DataTemplate>
+            <DataTemplate x:Key="BreadCrumbItemTemplate">
+                <StackLayout Padding="0" 
+                             Spacing="0"
+                             BackgroundColor="{Binding IsSelected, Converter={StaticResource TabSelectedColorConverter}, ConverterParameter=BreadCrumbSelectedColor|BreadCrumbUnSelectedColor}">
+                    <BoxView Color="{StaticResource BreadCrumbSelectedColor}"
+                             HeightRequest="1" />
+                    <StackLayout Padding="0"
+                                 Orientation="Horizontal"
+                                 Spacing="0">
+                        <Image Source="triangle.png"
+                               HeightRequest="50"
+                               IsVisible="{Binding IsImageVisible}"/>
+                        <Frame HasShadow="false"
+                               CornerRadius="0"
+                               BackgroundColor="Transparent"
+                               Padding="0">
+                            <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Header}"
+                                   TextColor="{Binding IsSelected, Converter={StaticResource TabSelectedColorConverter}, ConverterParameter=BreadCrumbSelectedTextColor|BreadCrumbUnSelectedTextColor}"
+                                   FontSize="16"
+                                   Margin="5,0,0,0"
+                                   HeightRequest="50"
+                                   FontAttributes="{Binding IsSelected, Converter={StaticResource TabSelectedTextAttributesConverter}}"
+                                   VerticalOptions="CenterAndExpand" 
+                                   VerticalTextAlignment="Center" />
+                        </Frame>
+
+                    </StackLayout>
+                    <BoxView Color="{StaticResource BreadCrumbSelectedColor}"
+                             VerticalOptions="End"
+                             HeightRequest="1" />
+                </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="{Binding ReturnIconSource}"
+                     Clicked="Return_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid RowSpacing="0" Padding="0"  Margin="5,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <customControls:ItemsView x:Name="BreadCrumbs"
+                                      BackgroundColor="{StaticResource BreadCrumbSelectedColor}"
+                                      Padding="0"
+                                      ItemTemplate="{StaticResource BreadCrumbItemTemplate}"/>
+            <customControls:TabbedView ItemsSource="{Binding Tabs}"
+                                      Padding="0"
+                                      Grid.Row="1" 
+                                      x:Name="TabbedView"
+                                      BackgroundColor="{StaticResource BackgroundColor}"
+                                      ItemTemplate="{StaticResource ItemTemplate}"
+                                      TemplateSelector="{StaticResource TemplateSelector}" />
+        
+            <BoxView Color="#E4E4E4"
+                             Grid.Row="2"
+                             HeightRequest="1" />
+            <Grid Grid.Row="3" BackgroundColor="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="refresh_icon.png"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        HeightRequest="50">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CommandRefresh}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="screenshot.png"
+                       Grid.Column="1"
+                       HorizontalOptions="Center"
+                       HeightRequest="50">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Handle_Capture" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="save_icon.png"
+                       Grid.Column="2"
+                       HorizontalOptions="Center"
+                       HeightRequest="50">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Handle_SaveClicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="xlsx_icon.png"
+                       Grid.Column="3"
+                       HorizontalOptions="Center"
+                       HeightRequest="50">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CommandGenerateFile}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+                <Grid BackgroundColor="Black"
+                        Opacity="0.2"
+                        IsVisible="{Binding IsFileEnabled, Converter={StaticResource BooleanNotConverter}}">
+                    <ActivityIndicator IsVisible="{Binding IsFileEnabled, Converter={StaticResource BooleanNotConverter}}"
+                                       IsRunning="{Binding IsFileEnabled, Converter={StaticResource BooleanNotConverter}}"
+                                       VerticalOptions="CenterAndExpand"
+                                       HorizontalOptions="CenterAndExpand"
+                                       Color="White" />
+                </Grid>
+            </Grid>
+            <Grid BackgroundColor="Black"
+                  Grid.Row="0"
+                  Grid.RowSpan="3"
+                  Opacity="0.2"
+                  Padding="0"
+                  IsVisible="{Binding IsBusy}">
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Color="White" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

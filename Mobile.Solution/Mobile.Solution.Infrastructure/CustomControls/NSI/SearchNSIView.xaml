@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customControls:AutoCompleteView 
+                                 xmlns="http://xamarin.com/schemas/2014/forms" 
+                                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                 xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+                                 Suggestions="{Binding Items}"  
+                                 SelectedItem="{Binding SelectedItem}"
+                                 TextColor="Black"
+                                 PlaceHolderColor="Silver"
+                                 ShowSearchButton="false"
+                                 SearchBarHeightRequest="55"
+                                 Placeholder="{Binding PlaceHolder}"
+                                 Text="{Binding SearchText}"
+                                 x:Class="Mobile.Solution.Infrastructure.CustomControls.SearchNsiView"/>

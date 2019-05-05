@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             x:Class="Mobile.Solution.UI.Application">
+    <Application.Resources>
+        <ResourceDictionary MergedWith="ui:Theme"/>
+    </Application.Resources>
+</Application>

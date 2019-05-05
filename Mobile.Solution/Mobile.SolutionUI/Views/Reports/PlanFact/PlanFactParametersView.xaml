@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helper="clr-namespace:Mobile.Solution.Infrastructure.Helpers;assembly=Mobile.Solution.Infrastructure"
+             xmlns:customControls="clr-namespace:Mobile.Solution.Infrastructure.CustomControls;assembly=Mobile.Solution.Infrastructure"
+             xmlns:reports="clr-namespace:Mobile.Solution.Infrastructure.Requests.Reports;assembly=Mobile.Solution.Infrastructure"
+             xmlns:ui="clr-namespace:Mobile.Solution.UI;assembly=Mobile.Solution.UI"
+             BackgroundColor="{StaticResource BackgroundColor}"
+			 Title="Параметры"
+             x:Class="Mobile.Solution.UI.Views.PlanFactParametersView">
+    <ContentPage.Resources>
+        <ResourceDictionary MergedWith="ui:Theme">
+            <helper:TabSelectedColorConverter x:Key="TabSelectedColorConverter" />
+            <DataTemplate x:Key="ToggleItemTemplate">
+                <Frame Padding="0"
+                       OutlineColor="Transparent"
+                       HorizontalOptions="FillAndExpand"
+                       HasShadow="false"
+                       CornerRadius="2"
+                       BackgroundColor="{Binding Value.IsSelected, Converter={StaticResource TabSelectedColorConverter}, 
+                                                               ConverterParameter=TabSelectedColor|TabSelectedTextColor}">
+                        <Label Style="{StaticResource MainLabelStyle}" Text="{Binding Value.Header}"
+                               WidthRequest="100"
+                               FontAttributes="Bold"
+                               TextColor="{Binding Value.IsSelected, Converter={StaticResource TabSelectedColorConverter}, 
+                                                               ConverterParameter=TabSelectedTextColor|TabUnSelectedTextColor}"
+                               VerticalOptions="CenterAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+                </Frame>
+            </DataTemplate>
+            <DataTemplate x:Key="SearchStationItemTemplate">
+                    <StackLayout Padding="0" Spacing="2" Margin="10,0,5,5">
+                        <Label Style="{StaticResource MainLabelStyle}" 
+                               FormattedText="{Binding FormattedText}"
+                               TextColor="Black"
+                               VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" />
+                        <Label Style="{StaticResource MainLabelStyle}" 
+                               Text="{Binding Value.DisplayCode}"
+                               TextColor="Black" 
+                               Opacity="0.2"
+                               VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" />
+                    </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="SAVED_icon.png"
+					 Clicked="Return_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView IsClippedToBounds="True"
+                    VerticalOptions="Start"
+                    BackgroundColor="{StaticResource BackgroundColor}">
+            <StackLayout>
+                <Label Style="{StaticResource MainLabelStyle}"
+                       Text="Определите параметры отчета"
+                       FontSize="18" 
+                       VerticalOptions="CenterAndExpand"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" />
+                
+                <customControls:ItemsView ItemsSource="{Binding ReportDirection}"
+                                          Margin="10,0,10,0"
+                                          HeightRequest="50"
+                                          ItemTemplate="{StaticResource ToggleItemTemplate}"
+                                          SelectedItem="{Binding ReportDirection.SelectedValue}" />
+
+                <StackLayout Padding="0"
+                             Margin="10,0,10,0"
+                             IsVisible="{Binding IsDeparture}">
+                     <Frame CornerRadius="2"
+                            HasShadow="false" Padding="0"
+                            OutlineColor="{StaticResource FrameBorderColor}">
+                        <customControls:SearchOrganisationView BindingContext="{Binding Sender}"/>
+                    </Frame>
+                    <Frame CornerRadius="2"
+                           HasShadow="false" 
+                           Padding="0"
+                           OutlineColor="{StaticResource FrameBorderColor}">
+                        <customControls:SearchNsiView BindingContext="{Binding FromStation}" 
+                                                      ItemTemplate="{StaticResource SearchStationItemTemplate}"/>
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout Padding="0"
+                             Margin="10,0,10,0"
+                             IsVisible="{Binding IsArrival}">
+                    <Frame CornerRadius="2"
+                           HasShadow="false"
+                           Padding="0"
+                           OutlineColor="{StaticResource FrameBorderColor}">
+                        <customControls:SearchOrganisationView BindingContext="{Binding Recip}"/>
+                    </Frame>
+                    <Frame CornerRadius="2"
+                           HasShadow="false"
+                           Padding="0"
+                           OutlineColor="{StaticResource FrameBorderColor}">
+                        <customControls:SearchNsiView BindingContext="{Binding ToStation}"
+                                                      ItemTemplate="{StaticResource SearchStationItemTemplate}"/>
+                    </Frame>
+                </StackLayout>
+
+                <Frame Margin="10,0,10,0"
+                       CornerRadius="2"
+                       HasShadow="false"
+                       Padding="0"
+                       OutlineColor="{StaticResource FrameBorderColor}">
+                    <customControls:SearchOrganisationView BindingContext="{Binding Payer}"/>
+                </Frame>
+
+                <Frame Margin="10,0,10,0"
+                       CornerRadius="2"
+                       HasShadow="false"
+                       Padding="0"
+                       OutlineColor="{StaticResource FrameBorderColor}">
+                    <customControls:SearchOrganisationView BindingContext="{Binding Owner}"/>
+                </Frame>
+                
+                <Label Text="{Binding ValidationText}"
+                       Margin="10,0,10,0"
+                       IsVisible="{Binding IsNotValidated}"
+                       Style="{StaticResource MainLabelStyle}"
+                       BackgroundColor="Transparent"
+                       FontSize="Micro"
+                       TextColor="Black" />
+                
+                <BoxView Color="{StaticResource FrameBorderColor}"
+                         HeightRequest="1" />
+                <Frame Margin="10,0,10,0"
+                       CornerRadius="2"
+                       HasShadow="false"
+                       Padding="0"
+                       OutlineColor="{StaticResource FrameBorderColor}">
+                    <Picker ItemsSource="{Binding FreightGroup.Items}"
+                            HeightRequest="55"
+                            SelectedItem="{Binding FreightGroup.SelectedItem}"/>
+                </Frame>
+
+               <Frame Margin="10,0,10,0"
+                      CornerRadius="2"
+                      HasShadow="false"
+                      Padding="0"
+                      OutlineColor="{StaticResource FrameBorderColor}">
+                    <customControls:EnumPicker ItemsSource="{Binding ConditionScheme.ValuesList}"
+                            HeightRequest="55"
+                            DisplayMemberPath="Value"
+                            x:TypeArguments="reports:CargoPlanConditionScheme"
+                            SelectedItem="{Binding ConditionScheme.SelectedValue}"/>
+               </Frame>
+                
+               <Frame Margin="10,0,10,0"
+                      CornerRadius="2"
+                      HasShadow="false"
+                      Padding="0"
+                      OutlineColor="{StaticResource FrameBorderColor}">
+                    <customControls:EnumPicker ItemsSource="{Binding PlanType.ValuesList}"
+                            HeightRequest="55"
+                            DisplayMemberPath="Value"
+                            x:TypeArguments="reports:CargoPlanTypeScheme"
+                            SelectedItem="{Binding PlanType.SelectedValue}"/>
+                </Frame>
+
+                <customControls:ItemsView ItemsSource="{Binding UnitType}"
+                                      Margin="10,0,10,0"
+                                      HeightRequest="50"
+                                      ItemTemplate="{StaticResource ToggleItemTemplate}"
+                                      SelectedItem="{Binding UnitType.SelectedValue}" />
+            
+                <customControls:ItemsView ItemsSource="{Binding PeriodType}"
+                                      Margin="10,0,10,0"
+                                      HeightRequest="50"
+                                      ItemTemplate="{StaticResource ToggleItemTemplate}"
+                                      SelectedItem="{Binding PeriodType.SelectedValue}" />
+                
+                <Frame Margin="10,0,10,0"
+                       IsVisible="{Binding IsMonth}"
+                       CornerRadius="2"
+                       HasShadow="false" 
+                       Padding="0" 
+                       OutlineColor="{StaticResource FrameBorderColor}">
+                    <Picker ItemsSource="{Binding Dates}"
+                            HeightRequest="55"
+                            SelectedItem="{Binding SelectedDate}"/>
+                </Frame>
+                
+                <Frame Margin="10,0,10,0"
+                       BackgroundColor="White"
+                       IsVisible="{Binding IsPeriod}"
+                       CornerRadius="2"
+                       HasShadow="false" 
+                       Padding="0" 
+                       OutlineColor="{StaticResource FrameBorderColor}">
+                    <StackLayout Orientation="Horizontal">
+                        <DatePicker Date="{Binding DateFrom}"
+                                    MinimumDate="{Binding DateMin}"
+                                    HeightRequest="55"
+                                    MaximumDate="{Binding DateTo}"
+                                    Format="dd-MMMM-yyyy" />
+                        <Label Text="-" 
+                               VerticalTextAlignment="Center" 
+                               VerticalOptions="Center"
+                               Margin="2,0,2,0"
+                               TextColor="Black"/>
+                        <DatePicker Date="{Binding DateTo}"
+                                    HeightRequest="55"
+                                    MinimumDate="{Binding DateFrom}"
+                                    MaximumDate="{Binding DateMax}"
+                                    Format="dd-MMMM-yyyy" />
+                    </StackLayout>
+                </Frame>
+                <Button Text="{Binding AcceptText}"
+                        Margin="10,0,10,0"
+						BackgroundColor="{Binding IsNotValidated, Converter={StaticResource TabSelectedColorConverter}, ConverterParameter=AcceptDisabledColor|AcceptEnabledColor}"
+                        Style="{StaticResource MainButtonStyle}"
+						FontSize="Medium"
+                        BorderRadius="3"
+                        Command="{Binding CommandAccept}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
